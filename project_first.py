@@ -40,8 +40,6 @@ for i in range(num_cars):
     vel[i] = R
 print(vel)
 print(pos_time)
-#blah blah blah
-#blah blah blah 2
 """
 for t in range(tot_time):
     for p in range(num_cars):
