@@ -40,14 +40,15 @@ for i in range(num_cars):
     vel[i] = R
 print(vel)
 print(pos_time)
-"""
+
 for t in range(tot_time):
-    for p in range(num_cars):
+    """
+      for p in range(num_cars):
         if(p==num_cars-1):
             d = num_cells - pos_time[t,p] + pos_time[t,0]#math.abs(pos_time[t,0]-pos_time[t,p])
         else:
             d = math.abs(pos_time[t,p+1]-pos_time[t,p])
-            
+    """        
         if(vel[p]<Vmax):
             vel[p] = vel[p]+1
         if(d<=vel[p]):
@@ -59,5 +60,5 @@ for t in range(tot_time):
         
         pos_time[t,p] = pos_time[t,p] + vel[p]
         
- """       
+    
 
