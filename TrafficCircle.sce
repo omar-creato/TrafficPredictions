@@ -45,6 +45,7 @@ endfunction
 rho=0.3
 L = 300
 num_cells = int((L/7.5))
+
 tot_time = 20
 Vmax = 5
 prob = 0.3
@@ -72,7 +73,7 @@ end
 
 
 //pos_time(1,:)=[N,N,N,N,N,N,N,1,N,N,5,N,N]
-pos_time(1,:)=[N,N,5,N,N,N,N,4,N,N,N,N,5,N,N,N,N,N,2,N,N,0,0,N,1,N,N,N,0,N,N,N,3,N,N,N,N,N,5,N]
+//pos_time(1,:)=[N,N,5,N,N,N,N,4,N,N,N,N,5,N,N,N,N,N,2,N,N,0,0,N,1,N,N,N,0,N,N,N,3,N,N,N,N,N,5,N]
 
 for t = 1:tot_time+1
     for x = 1:num_cells 
