@@ -45,7 +45,8 @@ endfunction
 rho=0.3
 L = 300
 num_cells = int((L/7.5))
-tot_time = 5
+
+tot_time = 20
 Vmax = 5
 prob = 0.3
 alpha = 0.4
