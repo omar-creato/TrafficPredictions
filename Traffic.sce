@@ -4,13 +4,20 @@ clc
 
 //Function for finding distance
 function distance=d(row,col)
+    flag = 0
+    
     for i=col+1:num_cells
         if pos_time(row,i) ~= N then
             distance = i - col
+            flag = 1
             break
         end
     end
+    
+    if flag == 0 then
         distance = num_cells
+    end
+
 endfunction
 
 
@@ -23,21 +30,28 @@ function YesOrNo = probability(p)
     end
 endfunction
 
+
+
+
+
+
 //Initialisation
 num_cars=5
-L = 200
+L = 100
 num_cells = int((L/7.5))
 tot_time = 5
-Vmax = 4
+Vmax = 3
 prob = 0.3
-alpha = 0.5
+alpha = 0.4
 beta0 = 0.4
 
 Void=poly(0,'o')
 N=-0.01
 //No car position and zero car position will coincide so poly N for no car
 pos_time=zeros(tot_time+1,num_cells) + N 
-num=linspace(1,num_cells,num_cells)
+pos_time2 = zeros(tot_time+1,num_cells) + Void
+
+
 
 //Ensuring that the next car is atleast d/2 distance away while filling initially
 i=1
@@ -49,6 +63,19 @@ while i < num_cells
         i=i+1
     end
 end
+
+
+for t = 1:tot_time+1
+    for x = 1:num_cells 
+        if pos_time(t,x) >=0 then
+            pos_time2(t,x)=pos_time(t,x)
+        end
+    end
+end
+
+
+
+disp(pos_time2(1,:),"Initial positions")
 
 disp("LOOP Bigins")
 //Loop Begins
@@ -67,65 +94,31 @@ for t=1:tot_time
 //            disp(x,"run for x ")
             
             if pos_time(t,x) < Vmax && d(t,x) > pos_time(t,x) + 1 then
-                if x+pos_time(t,x)+1 > num_cells then 
-                    pos_time(t+1,x) = N
-                else
-                    
-                    if pos_time(t+1,x + pos_time(t,x)+1) ~= N then
-                        disp("ERROR")
-                    end
-                    
-                    pos_time(t+1,x + pos_time(t,x)+1) =  pos_time(t,x) + 1
-                    pos_time(t+1,x) = N
-                end
-            
+                pos_time(t,x) =  pos_time(t,x) + 1
+            end
 
 //STEP 2
-            elseif d(t,x) < pos_time(t,x)/2 then 
-                if x+pos_time(t,x)-1 > num_cells then 
-                    pos_time(t+1,x) = N
-                else
-                    
-                    if pos_time(t+1,x + pos_time(t,x)-1) ~= N then
-                        disp("ERROR")
-                    end
-                    
-                    pos_time(t+1,x + pos_time(t,x) - 1) = pos_time(t,x) - 1
-                    if pos_time(t,x)-1 ~= 0
-                        pos_time(t+1,x) = N
-                    end
-                end
+            if d(t,x) < pos_time(t,x)/2 then 
+                  pos_time(t,x) = pos_time(t,x) - 1
+            end
             
         
 //STEP 3
-            elseif probability(prob) == 1 then
-                if x+pos_time(t,x)-1 > num_cells then 
-                    pos_time(t+1,x) = N
-                else
-                    
-                    if pos_time(t+1,x + pos_time(t,x)-1) ~= N then
-                        disp("ERROR")
-                    end
-                    
-                    pos_time(t+1,x + pos_time(t,x) - 1) = pos_time(t,x) - 1
-                    if pos_time(t,x)-1 ~= 0
-                        pos_time(t+1,x) = N
-                    end
-                end
+            if probability(prob) == 1 then
+                pos_time(t,x) = pos_time(t,x) - 1
+            end
 
 //STEP 4
-             else
-                if x+pos_time(t,x) > num_cells then 
+            if x+pos_time(t,x) > num_cells then 
                     pos_time(t+1,x) = N
-                else
-                    
+            
+            else
                     pos_time(t+1,x + pos_time(t,x)) = pos_time(t,x)
-                    if pos_time(t,x)-1 ~= 0
+                    if pos_time(t,x) ~= 0
                         pos_time(t+1,x) = N
                     end
-                 end
              end
-            
+             
             
             
         end //end of checking cars
@@ -135,17 +128,17 @@ for t=1:tot_time
     //disp(pos_time(t,:))
 end //end of time loop
 
-pos_time2 = zeros(tot_time+1,num_cells) + Void
+
 for t = 1:tot_time+1
     for x = 1:num_cells 
-        if pos_time(t,x) >0 then
+        if pos_time(t,x) >=0 then
             pos_time2(t,x)=pos_time(t,x)
             plot2d(x,t)
-                a=gca()
+            a=gca()
             a.children(1).children.line_mode="off"
             a.children(1).children.mark_mode="on"
-            a.children(1).children.mark_style= 11 //pos_time(t,x)
-            a.children(1).children.mark_size= pos_time(t,x)*2 +1
+            a.children(1).children.mark_style= 0 //pos_time(t,x)
+            a.children(1).children.mark_size= pos_time(t,x)*3 +1
             a.grid_style = [7,7]
             a.x_location = "top"
             a.axes_reverse = ["off","on"]
@@ -155,54 +148,6 @@ for t = 1:tot_time+1
 end
 xgrid(1)
 
-disp(pos_time2(1,:),"Initial positions")
 disp(pos_time2,"Positions after each time step")
-
-
-
-
-
-
-
-
-
-
-
-
-//x=0
-//y=0
-//for i=1:10000
-//    ch=probability(0.2)
-//    if ch==0 then 
-//        x=x+1
-//    else
-//        y=y+1
-//    end
-//end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
