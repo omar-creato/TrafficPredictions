@@ -17,10 +17,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from random import randrange
 from random import sample
-num_cars = 5 ##number of cars initially
+num_cars = 10 ##number of cars initially
 L = 100
 num_cells = (int)(L/7.5)
-tot_time = 5 
+tot_time = 30
 Vmax = 5
 prob = 0.3
 c=0
