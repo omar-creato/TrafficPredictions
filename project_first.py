@@ -42,35 +42,44 @@ vel = []
 for i in range(num_cars): ##assigning initial velocities
     R = randrange(0,Vmax+1,1)
     vel.append(R)
+    
+###########################################################
+def pos_to_vel(T,P):
+    e = 0
+    for i in range(num_cells):
+        if(pos_time[T,P]!=0):
+            
+            
+###########################################################
 
 ##print(vel[0])
 #print(vel)#.tolist())
 #print(pos_time)## prints initial position
 
 ################function begins#############################
-def add_remove(t): ## function to add or remove cars with probability alpha
+def add_remove(t1): ## function to add or remove cars with probability alpha
 
-    if(pos_time[t,0]==0):## if the first cell is empty at a given time t
+    if(pos_time[t1,0]==0):## if the first cell is empty at a given time t
         rd1 = np.random.random() 
         if(rd1<alpha):
-            pos_time[t,0] = 1 ##first position
+            pos_time[t1,0] = 1 ##first position
             vel.insert(0,randrange(0,Vmax+1,1)) ##assigning velocity to the newly added car
             
-    if(pos_time[t,num_cells-1] !=0):# if the last cell is occupied, remove.
+    if(pos_time[t1,num_cells-1] !=0):# if the last cell is occupied, remove.
         rd2 = np.random.random()
         if(rd2<beta):
-            pos_time[t,num_cells-1] = 0 ##removal of the car
+            pos_time[t1,num_cells-1] = 0 ##removal of the car
             vel.pop(len(vel)-1) ## removing the velocity
     
     return pos_time
 ##################function ends############################    
 
 ##################function begins##########################
-def pos_next(t,p):### function to find the position of the next car
+def pos_next(t2,p2):### function to find the position of the next car
     flag = 0
-    for i in range(p+1,num_cells):
-        if(pos_time[t,i]!=0):
-            b = pos_time[t,i]
+    for i in range(p2+1,num_cells):
+        if(pos_time[t2,i]!=0):
+            b = pos_time[t2,i]
             flag = 1
             break
         
