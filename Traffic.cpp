@@ -101,15 +101,15 @@ class Vehical: public TimeStamp
     }   
     int GetCarTime(int i)
     {
-    	CarData[i].GetTime();
+    	return CarData[i].GetTime();
     }   
     int GetCarPosition(int i)
     {
-    	CarData[i].GetPosition();
+    	return CarData[i].GetPosition();
     }
     int GetCarVelocity(int i)
     {
-    	CarData[i].GetVelocity();
+    	return CarData[i].GetVelocity();
     }
     
 // Print Function
