@@ -26,10 +26,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from random import randrange
 from random import sample
-num_cars = 10 ##number of cars initially
-L = 100
+num_cars = 9 ##number of cars initially
+L = 525
 num_cells = (int)(L/7.5)
-tot_time = 10
+tot_time = 50
 Vmax = 5
 prob = 0.3
 c=0
@@ -50,10 +50,10 @@ for i in range(num_cars): ##assigning initial velocities
     R = randrange(0,Vmax+1,1)
     vel.append(R)
     
-print("initial positions")
-print(pos_time)
-print("initial velocities")
-print(vel)
+#print("initial positions")
+#print(pos_time)
+#print("initial velocities")
+#print(vel)
 ##########################function begins#################################
 def pos_to_vel(T): ## function to replace the index/position of the car with their respective velocities
     e = 0
@@ -61,6 +61,8 @@ def pos_to_vel(T): ## function to replace the index/position of the car with the
         if(pos_time[T,i]!=0):
             vel_pos_time[T,i]=vel[e]
             e = e+1
+        else:
+            vel_pos_time[T,i] = -1 
     return vel_pos_time
     
 
@@ -129,12 +131,31 @@ for t in range(tot_time-1):
                 if(n<=num_cells):
                     pos_time[t+1,n-1] = n
                 i = i+1
-    #pos_time = add_remove(t+1)
+    pos_time = add_remove(t+1)
     vel_pos_time = pos_to_vel(t+1)
 
-print("final positions")
-print(pos_time)
-print("final velocities")
-print(vel)
-print("final positions with corresponding velocities")
-print(vel_pos_time)
+#print(vel_pos_time) 
+#########printing the cars with their respective velocities and dot for empty space########################
+for t in range(tot_time):
+    for p in range(num_cells):
+        if(vel_pos_time[t,p]!=-1):
+            print((int)(vel_pos_time[t,p]),end='')
+        else:
+            print('.', end='')
+    print('\n')
+##########################################################################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
