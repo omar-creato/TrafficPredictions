@@ -267,31 +267,42 @@ int flag =0;
 //Plotting
 	TCanvas *c1 = new TCanvas("c1","Graph Draw Options",200,10,800,800);
 //    c1->SetGrid();
-    TGraph *step[TotCars][2];
-    TMultiGraph *mg = new TMultiGraph();
+    c1->Divide(1,2);
+    TGraph *step1[TotCars];
+    TGraph *step2[TotCars];
+    TMultiGraph *mg1 = new TMultiGraph();
+    TMultiGraph *mg2 = new TMultiGraph();
 	for (int i=0; i<TotCars; i++)
 	{
-	    step[i] = new TGraph();
+	    step1[i] = new TGraph();
+	 	step2[i] = new TGraph();   
 	    for (int j=0; j<=Tmax; j++)
         {   
-            step[i][0]->SetPoint(j,car[i][0].CarData[j].Position,Tmax-car[i].CarData[j].Time);
-            step[i][1]->SetPoint(j,TotSites-car[i][0].CarData[j].Position+1,Tmax-car[i].CarData[j].Time);
+            step1[i]->SetPoint(j,car[i][0].CarData[j].Position,Tmax-car[i][0].CarData[j].Time);
+            step2[i]->SetPoint(j,TotSites-car[i][1].CarData[j].Position+1,Tmax-car[i][1].CarData[j].Time);
             //step[i]->Draw("same A*");
-            step[i][0]->SetMarkerStyle(i*2+1);
-            step[i][1]->SetMarkerStyle(i*2+1);            
+            step1[i]->SetMarkerStyle(i*2+1);
+            step2[i]->SetMarkerStyle(i*2+1);            
             c1->Update();
 
         } 
-        mg->Add(step[i][0]);
-        mg->Add(step[i][1]); 
-        step[i][0]->SetMarkerStyle(20+i);
-        step[i][0]->SetMarkerColor(1);
-        step[i][0]->SetMarkerStyle(20+TotCars+i);
-        step[i][0]->SetMarkerColor(2);        
+        mg1->Add(step1[i]);
+        step1[i]->SetMarkerStyle(20+i);
+        step1[i]->SetMarkerColor(1);
+        
+        mg2->Add(step2[i]);    
+        step2[i]->SetMarkerStyle(20+TotCars+i);
+        step2[i]->SetMarkerColor(2);        
 	}
-	mg->Draw("A pm p");
-	ShiftXAxis(mg,TotSites);
-	ReverseYAxis(mg);
+	c1->cd(1);
+	mg1->Draw("A pm p");
+	ShiftXAxis(mg1,TotSites);
+	ReverseYAxis(mg1);
+	
+	c1->cd(2);
+	mg2->Draw("A pm p");
+	ShiftXAxis(mg2,TotSites);
+	ReverseYAxis(mg2);
 	
 	return 0;
 }
