@@ -1,3 +1,26 @@
+//
+// ************************************************************************
+// * Disclaimer!!!                                                        *
+// * Copyright (C) 12 March 2020 Ankur Yadav <ankuryadavt20cool@gmail.com>*
+// *                                                                      *
+// * This file is part of TrafficPredictions project.                     *
+// * https://github.com/Ankyyadav/TrafficPredictions/tree/master          *
+// *                                                                      *
+// * TrafficPrediction can not be copied and/or distributed without the   *
+// * express permission of the author                                     *
+// * This is a ROOT macro which tries to simulate traffic scenarios       * 
+// * using thesimplistic NaSch's four step model with some                *
+// * extensions.                                                          *
+// *                                                                      *
+// *                        AUTHOR :- Ankur Yadav                         *
+// *                                  University of Bonn                  *
+// *                                  ankuryadavt20cool@gmail.com         *
+// *                                                                      *
+// * Extension Type --  NaSch Model in a circle                           *
+// ************************************************************************
+//
+
+
 #include<iostream>
 #include<cmath>
 #include<cstdlib>
